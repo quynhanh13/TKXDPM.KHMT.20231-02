@@ -18,6 +18,7 @@ public class BaseController {
      * @return CartMedia or null
      */
     public CartMedia checkMediaInCart(Media media){
+        // Content coupling
         return Cart.getCart().checkMediaInCart(media);
     }
 
@@ -26,6 +27,7 @@ public class BaseController {
      * @return List[CartMedia]
      */
     public List getListCartMedia(){
+        // Content coupling
         return Cart.getCart().getListMedia();
     }
 }
