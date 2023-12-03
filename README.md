@@ -78,7 +78,7 @@ Managing Capstone's project in the Software Design and Construction course in th
   - src/views/screen/home
 
 - Implementation details:
-  - Pull Request(s): #3
+  - Pull Request(s): #https://github.com/quynhanh13/TKXDPM.KHMT.20231-02/pull/3
   - Specific implementation details:
     - Add comments when detecting coupling
 
