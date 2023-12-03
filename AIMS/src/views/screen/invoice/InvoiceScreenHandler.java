@@ -58,7 +58,7 @@ public class InvoiceScreenHandler extends BaseScreenHandler {
 	private VBox vboxItems;
 
 	private Invoice invoice;
-
+	//data coupling
 	public InvoiceScreenHandler(Stage stage, String screenPath, Invoice invoice) throws IOException {
 		super(stage, screenPath);
 		this.invoice = invoice;
@@ -98,6 +98,7 @@ public class InvoiceScreenHandler extends BaseScreenHandler {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		//content coupling
 		BaseScreenHandler paymentScreen = new PaymentScreenHandler(this.stage, Configs.PAYMENT_SCREEN_PATH, invoice);
 		paymentScreen.setBController(new PaymentController());
 		paymentScreen.setPreviousScreen(this);
