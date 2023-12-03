@@ -78,7 +78,7 @@ Managing Capstone's project in the Software Design and Construction course in th
   - src/views/screen/home
 
 - Implementation details:
-  - Pull Request(s): topic/discover_coupling_type_20204632
+  - Pull Request(s): #3
   - Specific implementation details:
     - Add comments when detecting coupling
 
