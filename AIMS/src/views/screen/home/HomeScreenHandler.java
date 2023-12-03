@@ -79,6 +79,7 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
 
     @Override
     public void show() {
+        // Content coupling
         numMediaInCart.setText(String.valueOf(Cart.getCart().getListMedia().size()) + " media");
         super.show();
     }
@@ -87,10 +88,12 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
     public void initialize(URL arg0, ResourceBundle arg1) {
         setBController(new HomeController());
         try{
+            // Content coupling
             List medium = getBController().getAllMedia();
             this.homeItems = new ArrayList<>();
             for (Object object : medium) {
                 Media media = (Media)object;
+                // Stamp coupling
                 MediaHandler m1 = new MediaHandler(Configs.HOME_MEDIA_PATH, media, this);
                 this.homeItems.add(m1);
             }
@@ -101,6 +104,7 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
         
             
         aimsImage.setOnMouseClicked(e -> {
+            // Control coupling
             addMediaHome(this.homeItems);
         });
         
