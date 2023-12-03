@@ -33,7 +33,7 @@ Managing Capstone's project in the Software Design and Construction course in th
 
 
 <details>
-  <summary>Week xx Report, where you record the week as Wxx: from date ~ to date. Example: W1: 01/10/2023~08/10/2023 </summary>
+  <summary> W13: 27/11/2023~03/12/2023 </summary>
 <br>
 <details>
 <summary>Team Member 1</summary>
@@ -53,19 +53,18 @@ Managing Capstone's project in the Software Design and Construction course in th
 </details>
 
 <details>
-<summary>Team Member 2</summary>
+<summary>Nguyễn Ngọc Quỳnh Anh</summary>
 <br>
 
-- Assigned tasks:
-  - Task 1
-  - Task 2
-  - ...
+- Assigned tasks: Discover Coupling Type at base code:
+  - src/controller/PlaceOrderController
+  - src/views/screen/Shipping
+  - src/views/screen/Invoice
 
 - Implementation details:
-  - Pull Request(s): [Attach links to your pull requests here. You can attach multiple pull requests]()
+  - Pull Request: https://github.com/quynhanh13/TKXDPM.KHMT.20231-02/pull/1
   - Specific implementation details:
-    - Describe specific in detail what you did last week
-    - You can attach images if you want
+    - Add comments when detecting coupling
 
 </details>
 <details>
