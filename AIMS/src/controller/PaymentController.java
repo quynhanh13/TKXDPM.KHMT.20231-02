@@ -17,7 +17,7 @@ import subsystem.InterbankSubsystem;
 /**
  * This {@code PaymentController} class control the flow of the payment process
  * in our AIMS Software.
- * 
+ *
  * @author hieud
  *
  */
@@ -37,7 +37,7 @@ public class PaymentController extends BaseController {
 	 * Validate the input date which should be in the format "mm/yy", and then
 	 * return a {@link java.lang.String String} representing the date in the
 	 * required format "mmyy" .
-	 * 
+	 *
 	 * @param date - the {@link java.lang.String String} represents the input date
 	 * @return {@link java.lang.String String} - date representation of the required
 	 *         format
@@ -71,24 +71,16 @@ public class PaymentController extends BaseController {
 
 	/**
 	 * Pay order, and then return the result with a message.
-	 * 
+	 *
 	 * @param amount         - the amount to pay
 	 * @param contents       - the transaction contents
-	 * @param cardNumber     - the card number
-	 * @param cardHolderName - the card holder name
-	 * @param expirationDate - the expiration date in the format "mm/yy"
-	 * @param securityCode   - the cvv/cvc code of the credit card
 	 * @return {@link java.util.Map Map} represent the payment result with a
 	 *         message.
 	 */
-	public Map<String, String> payOrder(int amount, String contents, String cardNumber, String cardHolderName,
-			String expirationDate, String securityCode) {
+	public Map<String, String> payOrder(int amount, String contents) {
 		Map<String, String> result = new Hashtable<String, String>();
 		result.put("RESULT", "PAYMENT FAILED!");
 		try {
-			this.card = new CreditCard(cardNumber, cardHolderName, Integer.parseInt(securityCode),
-					getExpirationDate(expirationDate));
-
 			this.interbank = new InterbankSubsystem();
 //			PaymentTransaction transaction = interbank.payOrder(card, amount, contents);
 			PaymentTransaction transaction = interbank.paypalPayOrder(amount,contents);
@@ -102,6 +94,7 @@ public class PaymentController extends BaseController {
 	}
 
 	public void emptyCart(){
-        Cart.getCart().emptyCart();
-    }
+		//Content Coupling
+		Cart.getCart().emptyCart();
+	}
 }

@@ -92,12 +92,6 @@ public class InvoiceScreenHandler extends BaseScreenHandler {
 
 	@FXML
 	void confirmInvoice(MouseEvent event) throws IOException {
-		String url = invoice.getUrlPayOrder();
-		try {
-			Desktop.getDesktop().browse(new URI(url));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		BaseScreenHandler paymentScreen = new PaymentScreenHandler(this.stage, Configs.PAYMENT_SCREEN_PATH, invoice);
 		paymentScreen.setBController(new PaymentController());
 		paymentScreen.setPreviousScreen(this);
