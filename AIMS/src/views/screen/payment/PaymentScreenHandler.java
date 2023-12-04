@@ -1,6 +1,8 @@
 package views.screen.payment;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URI;
 import java.util.Map;
 
 import controller.PaymentController;
@@ -27,46 +29,51 @@ public class PaymentScreenHandler extends BaseScreenHandler {
 	@FXML
 	private ImageView loadingImage;
 
+	@FXML
+	private Label paymentLink;
+
+	@FXML
+	private Button btnGoToLink;
+
 	private Invoice invoice;
 
 	public PaymentScreenHandler(Stage stage, String screenPath, int amount, String contents) throws IOException {
 		super(stage, screenPath);
 	}
 
+	// Data Coupling
 	public PaymentScreenHandler(Stage stage, String screenPath, Invoice invoice) throws IOException {
 		super(stage, screenPath);
 		this.invoice = invoice;
-		
+		String url = this.invoice.getUrlPayOrder();
+		paymentLink.setText(url);
+
 		btnConfirmPayment.setOnMouseClicked(e -> {
 			try {
 				confirmToPayOrder();
+				//Content Coupling
 				((PaymentController) getBController()).emptyCart();
+			} catch (Exception exp) {
+				System.out.println(exp.getStackTrace());
+			}
+		});
+
+		btnGoToLink.setOnMouseClicked(e -> {
+			try {
+				Desktop.getDesktop().browse(new URI(url));
 			} catch (Exception exp) {
 				System.out.println(exp.getStackTrace());
 			}
 		});
 	}
 
-	@FXML
-	private Label pageTitle;
-
-	@FXML
-	private TextField cardNumber;
-
-	@FXML
-	private TextField holderName;
-
-	@FXML
-	private TextField expirationDate;
-
-	@FXML
-	private TextField securityCode;
 
 	void confirmToPayOrder() throws IOException{
 		String contents = "pay order";
 		PaymentController ctrl = (PaymentController) getBController();
-		Map<String, String> response = ctrl.payOrder(invoice.getAmount(), contents, cardNumber.getText(), holderName.getText(),
-				expirationDate.getText(), securityCode.getText());
+		// Data Coupling
+		int amount = invoice.getAmount();
+		Map<String, String> response = ctrl.payOrder(amount, contents);
 
 		BaseScreenHandler resultScreen = new ResultScreenHandler(this.stage, Configs.RESULT_SCREEN_PATH, response.get("RESULT"), response.get("MESSAGE") );
 		resultScreen.setPreviousScreen(this);

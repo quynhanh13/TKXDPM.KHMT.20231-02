@@ -17,6 +17,7 @@ public class ResultScreenHandler extends BaseScreenHandler {
 	private String result;
 	private String message;
 
+	//Data Coupling
 	public ResultScreenHandler(Stage stage, String screenPath, String result, String message) throws IOException {
 		super(stage, screenPath);
 		resultLabel.setText(result);
