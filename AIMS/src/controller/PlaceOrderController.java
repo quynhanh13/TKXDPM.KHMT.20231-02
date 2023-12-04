@@ -35,6 +35,7 @@ public class PlaceOrderController extends BaseController{
      * @throws SQLException
      */
     public void placeOrder() throws SQLException{
+        //content coupling
         Cart.getCart().checkAvailabilityOfProduct();
     }
 
@@ -45,6 +46,7 @@ public class PlaceOrderController extends BaseController{
      */
     public Order createOrder() throws SQLException{
         Order order = new Order();
+        //content coupling
         for (Object object : Cart.getCart().getListMedia()) {
             CartMedia cartMedia = (CartMedia) object;
             OrderMedia orderMedia = new OrderMedia(cartMedia.getMedia(), 
@@ -60,6 +62,7 @@ public class PlaceOrderController extends BaseController{
      * @param order
      * @return Invoice
      */
+    //data coupling
     public Invoice createInvoice(Order order) {
         this.interbankInterface = new InterbankSubsystem();
         String id = this.interbankInterface.getUrlPayOrder(order.getAmount() + calculateShippingFee(order));
