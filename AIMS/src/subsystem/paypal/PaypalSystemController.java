@@ -33,7 +33,7 @@ public class PaypalSystemController {
         requestMap.put("transaction", transaction);
 
         try {
-            //Content Coupling
+            //data Coupling
             HttpResponse response = paypalBoundary.capturePayOrder(this.id);
             System.out.println(response.getEntity().toString());
             String statusCode = String.valueOf(response.getStatusLine().getStatusCode());

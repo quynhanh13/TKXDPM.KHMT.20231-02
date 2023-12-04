@@ -22,6 +22,8 @@ import views.screen.popup.PopupScreen;
  * This class controls the flow of place order usecase in our AIMS project
  * @author nguyenlm
  */
+//cohesion: procedural cohesion 
+//(các method validatePhonenumber, validateName, validateAdress, cacuclator cần chuyển sang class khác DeliveryValidator)
 public class PlaceOrderController extends BaseController{
 
     private InterbankInterface interbankInterface;
