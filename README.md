@@ -36,7 +36,7 @@ Managing Capstone's project in the Software Design and Construction course in th
   <summary>W13: 27/11/2023~03/12/2023</summary>
 <br>
 <details>
-<summary>Team Member 1</summary>
+<summary>Trần Xuân Bách</summary>
 <br>
 
 - Assigned tasks: Discover Coupling Type at base code:
