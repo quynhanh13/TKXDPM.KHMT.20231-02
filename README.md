@@ -91,7 +91,7 @@ Managing Capstone's project in the Software Design and Construction course in th
   - src/views/screen/cart
 
 - Implementation details:
-  - Pull Request(s): [Attach links to your pull requests here. You can attach multiple pull requests]()
+  - Pull Request(s): #https://github.com/quynhanh13/TKXDPM.KHMT.20231-02/pull/5
   - Specific implementation details:
     - Add comments when detecting coupling
 
