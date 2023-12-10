@@ -6,12 +6,12 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="19" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="openjfx.javafx.base" level="project" />
-    <orderEntry type="library" name="openjfx.javafx.fxml" level="project" />
-    <orderEntry type="library" name="openjfx.javafx.controls" level="project" />
-    <orderEntry type="module-library">
+    <orderEntry type="library" exported="" name="openjfx.javafx.base" level="project" />
+    <orderEntry type="library" exported="" name="openjfx.javafx.fxml" level="project" />
+    <orderEntry type="library" exported="" name="openjfx.javafx.controls" level="project" />
+    <orderEntry type="module-library" scope="TEST">
       <library name="JUnit5.8.1">
         <CLASSES>
           <root url="jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter/5.8.1/junit-jupiter-5.8.1.jar!/" />
@@ -27,10 +27,10 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="openjfx.javafx.graphics" level="project" />
-    <orderEntry type="library" name="openjfx.javafx.media" level="project" />
+    <orderEntry type="library" exported="" name="openjfx.javafx.graphics" level="project" />
+    <orderEntry type="library" exported="" name="openjfx.javafx.media" level="project" />
     <orderEntry type="library" exported="" name="lib" level="project" />
-    <orderEntry type="module-library" scope="TEST">
+    <orderEntry type="module-library" exported="" scope="TEST">
       <library name="JUnit4">
         <CLASSES>
           <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.13.1/junit-4.13.1.jar!/" />
@@ -40,8 +40,8 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="mockito.junit.jupiter" level="project" />
-    <orderEntry type="library" name="paypal.sdk.checkout" level="project" />
-    <orderEntry type="library" name="apache.httpcomponents.httpclient" level="project" />
+    <orderEntry type="library" exported="" name="mockito.junit.jupiter" level="project" />
+    <orderEntry type="library" exported="" name="paypal.sdk.checkout" level="project" />
+    <orderEntry type="library" exported="" name="apache.httpcomponents.httpclient" level="project" />
   </component>
 </module>

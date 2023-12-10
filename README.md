@@ -96,7 +96,58 @@ Managing Capstone's project in the Software Design and Construction course in th
     - Add comments when detecting coupling
 
 </details>
+</details>
 
+<details>
+  <summary>W13: 27/11/2023~03/12/2023</summary>
+<br>
+<details>
+<summary>Trần Xuân Bách</summary>
+<br>
 
+- Assigned tasks:
 
+- Implementation details:
+  - Pull Request(s):
+  - Specific implementation details:
+
+</details>
+
+<details>
+<summary>Nguyễn Ngọc Quỳnh Anh</summary>
+<br>
+
+- Assigned tasks: Refactoring codebase:
+  - src/controller/PlaceOrderController
+  - src/controller/DeliveryValidator
+
+- Implementation details:
+  - Pull Request: https://github.com/quynhanh13/TKXDPM.KHMT.20231-02/pull/6
+  - Specific implementation details:
+    - Create DeliveryValidator in package controller
+
+</details>
+<details>
+<summary>Nguyễn Vũ Thục Anh</summary>
+<br>
+
+- Assigned tasks:
+
+- Implementation details:
+  - Pull Request(s):
+  - Specific implementation details:
+
+</details>
+
+<details>
+<summary>Vũ Đức Anh</summary>
+<br>
+
+- Assigned tasks:
+
+- Implementation details:
+  - Pull Request(s):
+  - Specific implementation details:
+
+</details>
 </details>
