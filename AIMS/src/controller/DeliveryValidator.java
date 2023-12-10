@@ -22,9 +22,6 @@ public class DeliveryValidator {
         if (validateAddress(address)) {
             errors.put("address", "Invalid address");
         }
-
-        // Kiểm tra các trường khác nếu cần thiết
-
         return errors;
     }
 
