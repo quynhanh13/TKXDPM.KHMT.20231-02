@@ -109,6 +109,10 @@ public class PlaceOrderController extends BaseController{
      * @param order
      * @return shippingFee
      */
+
+    /* ở đây vi phạm nguyên tắc thiết kế Single responsibility priciple do lớp PlaceOrderController
+    đang thực hiện nhiều nhiệm vụ : cả tính phí ship và xác định khối lương sản phẩm lớn nhat của đơn
+    => cần tách hai phương thức này ra một lớp riêng */
     public int calculateShippingFee(Order order){
         HashMap<String, String> deliveryInfo = order.getDeliveryInfo();
         String province = "";
