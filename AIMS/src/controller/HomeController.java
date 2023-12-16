@@ -20,7 +20,7 @@ public class HomeController extends BaseController{
      * @throws SQLException
      */
     public List getAllMedia() throws SQLException{
-        // Content coupling
+        // data coupling
         return new Media().getAllMedia();
     }
 

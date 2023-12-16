@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.logging.Logger;
 
@@ -90,33 +91,18 @@ public class PlaceOrderController extends BaseController{
    * @throws InterruptedException
    * @throws IOException
    */
-    public void validateDeliveryInfo(HashMap<String, String> info) throws InterruptedException, IOException{
-        if(this.validateName(info.get("name"))){
-            throw  new InvalidDeliveryInfoException("Invalid name");
+    public void validateDeliveryInfo(HashMap<String, String> info) throws InvalidDeliveryInfoException {
+        Map<String, String> errors = DeliveryValidator.validateDeliveryInfo(info);
+
+        if (!errors.isEmpty()) {
+            StringBuilder errorMessage = new StringBuilder();
+            for (Map.Entry<String, String> entry : errors.entrySet()) {
+                errorMessage.append(entry.getValue()).append("\n");
+            }
+            throw new InvalidDeliveryInfoException(errorMessage.toString().trim());
         }
-        if(this.validatePhoneNumber(info.get("phone"))){
-            throw  new InvalidDeliveryInfoException("Invalid phone number");
-        }
-        if(this.validateAddress(info.get("address"))){
-            throw  new InvalidDeliveryInfoException("Invalid address");
-        }
     }
-    
-    public boolean validatePhoneNumber(String phoneNumber) {
-    	if(phoneNumber == null || phoneNumber.trim().isEmpty()) return true;
-    	return !phoneNumber.matches("\\d{10}");
-    }
-    
-    public boolean validateName(String name) {
-        if(name == null || name.trim().isEmpty()) return true;
-    	return !name.matches("^[a-zA-Z ]*$");
-    }
-    
-    public boolean validateAddress(String address) {
-        if(address == null || address.trim().isEmpty()) return true;
-        return !address.matches("^[a-zA-Z ]*$");
-    }
-    
+
 
     /**
      * This method calculates the shipping fees of order
