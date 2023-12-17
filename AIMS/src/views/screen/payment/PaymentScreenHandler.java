@@ -51,8 +51,7 @@ public class PaymentScreenHandler extends BaseScreenHandler {
 		btnConfirmPayment.setOnMouseClicked(e -> {
 			try {
 				confirmToPayOrder();
-				//Content Coupling
-				((PaymentController) getBController()).emptyCart();
+				Cart.getCart().emptyCart();
 			} catch (Exception exp) {
 				System.out.println(exp.getStackTrace());
 			}
