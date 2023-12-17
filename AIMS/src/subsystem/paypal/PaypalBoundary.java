@@ -2,10 +2,6 @@ package subsystem.paypal;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
-import java.io.IOException;
-import java.util.Base64;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -13,6 +9,9 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+
+import java.io.IOException;
+import java.util.Base64;
 
 
 public class PaypalBoundary {
