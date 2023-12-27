@@ -18,6 +18,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import subsystem.InterbankSubsystem;
 import utils.Configs;
 import utils.Utils;
 import views.screen.BaseScreenHandler;
@@ -92,14 +93,9 @@ public class InvoiceScreenHandler extends BaseScreenHandler {
 
 	@FXML
 	void confirmInvoice(MouseEvent event) throws IOException {
-		String url = invoice.getUrlPayOrder();
-		try {
-			Desktop.getDesktop().browse(new URI(url));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		BaseScreenHandler paymentScreen = new PaymentScreenHandler(this.stage, Configs.PAYMENT_SCREEN_PATH, invoice);
-		paymentScreen.setBController(new PaymentController());
+		InterbankSubsystem interbankSubsystem = new InterbankSubsystem();
+		paymentScreen.setBController(new PaymentController(interbankSubsystem));
 		paymentScreen.setPreviousScreen(this);
 		paymentScreen.setHomeScreenHandler(homeScreenHandler);
 		paymentScreen.setScreenTitle("Payment Screen");

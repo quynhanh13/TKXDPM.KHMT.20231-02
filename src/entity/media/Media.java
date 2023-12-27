@@ -75,6 +75,7 @@ public class Media {
     public List getAllMedia() throws SQLException{
         Statement stm = AIMSDB.getConnection().createStatement();
         ResultSet res = stm.executeQuery("select * from Media");
+        System.out.println(res);
         ArrayList medium = new ArrayList<>();
         while (res.next()) {
             Media media = new Media()

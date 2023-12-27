@@ -50,7 +50,7 @@ public class PlaceOrderController extends BaseController{
             OrderMedia orderMedia = new OrderMedia(cartMedia.getMedia(), 
                                                    cartMedia.getQuantity(), 
                                                    cartMedia.getPrice());    
-            order.getlstOrderMedia().add(orderMedia);
+            order.addOrderMedia(orderMedia);
         }
         return order;
     }
@@ -60,11 +60,12 @@ public class PlaceOrderController extends BaseController{
      * @param order
      * @return Invoice
      */
-    public Invoice createInvoice(Order order) {
+    public Invoice createInvoice(Order order) throws SQLException {
         this.interbankInterface = new InterbankSubsystem();
         String id = this.interbankInterface.getUrlPayOrder(order.getAmount() + calculateShippingFee(order));
-        String url = "https://www.sandbox.paypal.com/checkoutnow?token=" + id;
-        return new Invoice(order, url);
+        Invoice invoice = new Invoice(order, id);
+        invoice.saveInvoice();
+        return invoice;
     }
 
     /**

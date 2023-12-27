@@ -14,15 +14,13 @@ import java.util.logging.Logger;
 import common.exception.ViewCartException;
 import controller.BaseController;
 import controller.HomeController;
+import controller.InvoiceListController;
 import controller.ViewCartController;
 import entity.cart.Cart;
 import entity.media.Media;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.SplitMenuButton;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -33,6 +31,7 @@ import utils.Configs;
 import utils.Utils;
 import views.screen.BaseScreenHandler;
 import views.screen.cart.CartScreenHandler;
+import views.screen.invoicelist.InvoiceListHandler;
 
 
 public class HomeScreenHandler extends BaseScreenHandler implements Initializable{
@@ -62,6 +61,12 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
 
     @FXML
     private SplitMenuButton splitMenuBtnSearch;
+
+//    @FXML
+//    private Button invoiceList;
+
+    @FXML
+    private ImageView invoiceList;
 
     private List homeItems;
 
@@ -116,6 +121,21 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
                 throw new ViewCartException(Arrays.toString(e1.getStackTrace()).replaceAll(", ", "\n"));
             }
         });
+
+        invoiceList.setOnMouseClicked(e -> {
+            InvoiceListHandler invoiceListHandler;
+            try {
+                invoiceListHandler = new InvoiceListHandler(this.stage, Configs.INVOICE_LIST_PATH);
+                invoiceListHandler.setHomeScreenHandler(this);
+                invoiceListHandler.setBController(new InvoiceListController());
+                invoiceListHandler.requestToInvoiceList(this);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
         addMediaHome(this.homeItems);
         addMenuItem(0, "Book", splitMenuBtnSearch);
         addMenuItem(1, "DVD", splitMenuBtnSearch);
@@ -131,6 +151,10 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
         File file2 = new File(Configs.IMAGE_PATH + "/" + "cart.png");
         Image img2 = new Image(file2.toURI().toString());
         cartImage.setImage(img2);
+
+        File file3 = new File(Configs.IMAGE_PATH + "/" + "invoice.png");
+        Image img3 = new Image(file3.toURI().toString());
+        invoiceList.setImage(img3);
     }
 
     public void addMediaHome(List items){

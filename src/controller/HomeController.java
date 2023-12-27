@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import entity.cart.Cart;
+import entity.invoice.Invoice;
 import entity.media.Media;
 
 /**

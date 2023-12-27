@@ -3,10 +3,14 @@ package subsystem;
 import common.exception.InternalServerErrorException;
 import common.exception.InvalidCardException;
 import common.exception.NotEnoughBalanceException;
+import entity.invoice.Invoice;
 import entity.payment.CreditCard;
 import entity.payment.PaymentTransaction;
 import subsystem.interbank.InterbankSubsystemController;
 import subsystem.paypal.PaypalSystemController;
+
+import java.io.IOException;
+import java.sql.SQLException;
 
 /***
  * The {@code InterbankSubsystem} class is used to communicate with the
@@ -56,8 +60,12 @@ public class InterbankSubsystem implements InterbankInterface {
 	}
 
 
-	public PaymentTransaction paypalPayOrder(int amount, String contents) {
-		PaymentTransaction transaction = paypalSystemController.payOrder(amount,contents);
+	public PaymentTransaction paypalPayOrder(Invoice invoice, String contents) throws IOException, SQLException {
+		PaymentTransaction transaction = paypalSystemController.payOrder(invoice,contents);
 		return transaction;
+	}
+
+	public void refundOrder(Invoice invoice) throws IOException, SQLException {
+		paypalSystemController.refundOrder(invoice);
 	}
 }

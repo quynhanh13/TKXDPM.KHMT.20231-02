@@ -45,6 +45,7 @@ public class Configs {
 	public static final String RESULT_SCREEN_PATH = "/views/fxml/result.fxml";
 	public static final String SPLASH_SCREEN_PATH = "/views/fxml/splash.fxml";
 	public static final String CART_SCREEN_PATH = "/views/fxml/cart.fxml";
+	public static final String INVOICE_LIST_PATH = "/views/fxml/invoice_list.fxml";
 	public static final String SHIPPING_SCREEN_PATH = "/views/fxml/shipping.fxml";
 	public static final String CART_MEDIA_PATH = "/views/fxml/media_cart.fxml";
 	public static final String HOME_PATH  = "/views/fxml/home.fxml";

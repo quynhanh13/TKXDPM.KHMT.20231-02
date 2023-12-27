@@ -85,6 +85,7 @@ public class ShippingScreenHandler extends BaseScreenHandler implements Initiali
 		order.setDeliveryInfo(messages);
 		int shippingFees = getBController().calculateShippingFee(order);
 		order.setShippingFees(shippingFees);
+		order.saveOrder();
 		
 		// create invoice screen
 		Invoice invoice = getBController().createInvoice(order);
