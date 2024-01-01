@@ -1,14 +1,11 @@
 package views.screen.home;
 
+import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.logging.Logger;
 
 import common.exception.ViewCartException;
@@ -23,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
@@ -32,6 +30,7 @@ import utils.Utils;
 import views.screen.BaseScreenHandler;
 import views.screen.cart.CartScreenHandler;
 import views.screen.invoicelist.InvoiceListHandler;
+import views.screen.popup.PopupScreen;
 
 
 public class HomeScreenHandler extends BaseScreenHandler implements Initializable{
@@ -58,6 +57,9 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
 
     @FXML
     private HBox hboxMedia;
+
+    @FXML
+    private TextField searchField;
 
     @FXML
     private SplitMenuButton splitMenuBtnSearch;
@@ -140,6 +142,10 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
         addMenuItem(0, "Book", splitMenuBtnSearch);
         addMenuItem(1, "DVD", splitMenuBtnSearch);
         addMenuItem(2, "CD", splitMenuBtnSearch);
+        addMenuItem(3, "<20đ", splitMenuBtnSearch);
+        addMenuItem(4, "20đ-50đ", splitMenuBtnSearch);
+        addMenuItem(5, "50đ-100đ", splitMenuBtnSearch);
+        addMenuItem(6, ">100đ", splitMenuBtnSearch);
     }
 
     public void setImage(){
@@ -198,14 +204,72 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
                 if (media.getMedia().getTitle().toLowerCase().startsWith(text.toLowerCase())){
                     filteredItems.add(media);
                 }
+                if (text.equals("<20đ")) {
+                    if (media.getMedia().getPrice() < 20) {
+                        filteredItems.add(media);
+                    }
+
+                } else if (text.equals("20đ-50đ")) {
+                    if (media.getMedia().getPrice() >= 20 && media.getMedia().getPrice() <= 50) {
+                        filteredItems.add(media);
+                    }
+                } else if (text.equals("50đ-100đ")) {
+                    if (media.getMedia().getPrice() > 50 && media.getMedia().getPrice() <= 100) {
+                        filteredItems.add(media);
+                    }
+                }
+                else if (text.equals("50đ-100đ")) {
+                    if (media.getMedia().getPrice() > 100) {
+                        filteredItems.add(media);
+                    }
+                }
             });
 
+            Collections.sort(filteredItems, Comparator.comparingDouble(
+                    media -> ((MediaHandler) media).getMedia().getPrice()));
+
             // fill out the home with filted media as category
-            addMediaHome(filteredItems);
+//            addMediaHome(filteredItems);
+            if (filteredItems.isEmpty()) {
+                try {
+
+                    PopupScreen.error("No matching products.");
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            } else {
+                // fill out the home with filtered media as a category
+                addMediaHome(filteredItems);
+            }
         });
         menuButton.getItems().add(position, menuItem);
     }
 
-    
-    
+    @FXML
+    private void searchButtonClicked(MouseEvent event) {
+        String searchText = searchField.getText().toLowerCase().trim();
+
+        // Lọc danh sách sản phẩm dựa trên tiêu đề
+        List<MediaHandler> filteredItems = new ArrayList<>();
+        for (Object item : homeItems) {
+            MediaHandler media = (MediaHandler) item;
+            if (media.getMedia().getTitle().toLowerCase().contains(searchText)) {
+                filteredItems.add(media);
+            }
+        }
+        if (filteredItems.isEmpty()) {
+            try {
+
+                PopupScreen.error("No matching products.");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        } else {
+            // fill out the home with filtered media as a category
+            addMediaHome(filteredItems);
+        }
+    }
+
+
 }
+
