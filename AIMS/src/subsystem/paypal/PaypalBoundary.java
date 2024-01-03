@@ -2,6 +2,10 @@ package subsystem.paypal;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
+import java.io.IOException;
+import java.util.Base64;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -9,9 +13,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-
-import java.io.IOException;
-import java.util.Base64;
 
 
 public class PaypalBoundary {
@@ -66,6 +67,7 @@ public class PaypalBoundary {
         HttpPost httpPost = new HttpPost(paypalApiUrl);
 
         String accessToken = getAccessToken(clientId,secret);
+        System.out.println(accessToken);
         // Set headers
         httpPost.setHeader("Content-Type", "application/json");
         httpPost.setHeader("Authorization", "Bearer " + accessToken);
@@ -79,6 +81,25 @@ public class PaypalBoundary {
         }
     }
 
+    public HttpResponse refundPayOrder(String id) throws IOException {
+        String paypalApiUrl = "https://api.sandbox.paypal.com/v2/payments/captures/" + id + "/refund";
+
+        HttpClient httpClient = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost(paypalApiUrl);
+
+        String accessToken = getAccessToken(clientId,secret);
+        // Set headers
+        httpPost.setHeader("Content-Type", "application/json");
+        httpPost.setHeader("Authorization", "Bearer " + accessToken);
+
+        try {
+            // Execute the request
+            HttpResponse response = httpClient.execute(httpPost);
+            return response;
+        } catch (IOException e) {
+            throw e;
+        }
+    }
 
     private static String getAccessToken(String clientId, String secret) {
         String paypalOAuthUrl = "https://api.sandbox.paypal.com/v1/oauth2/token";

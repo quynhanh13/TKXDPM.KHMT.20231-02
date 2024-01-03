@@ -45,13 +45,14 @@ public class PaymentScreenHandler extends BaseScreenHandler {
 	public PaymentScreenHandler(Stage stage, String screenPath, Invoice invoice) throws IOException {
 		super(stage, screenPath);
 		this.invoice = invoice;
-		String url = this.invoice.getUrlPayOrder();
+		String url = "https://www.sandbox.paypal.com/checkoutnow?token=" + this.invoice.getPaypalId();
 		paymentLink.setText(url);
 
 		btnConfirmPayment.setOnMouseClicked(e -> {
 			try {
 				confirmToPayOrder();
-				Cart.getCart().emptyCart();
+				//Content Coupling
+				((PaymentController) getBController()).emptyCart();
 			} catch (Exception exp) {
 				System.out.println(exp.getStackTrace());
 			}
@@ -70,9 +71,7 @@ public class PaymentScreenHandler extends BaseScreenHandler {
 	void confirmToPayOrder() throws IOException{
 		String contents = "pay order";
 		PaymentController ctrl = (PaymentController) getBController();
-		// Data Coupling
-		int amount = invoice.getAmount();
-		Map<String, String> response = ctrl.payOrder(amount, contents);
+		Map<String, String> response = ctrl.payOrder(invoice, contents);
 
 		BaseScreenHandler resultScreen = new ResultScreenHandler(this.stage, Configs.RESULT_SCREEN_PATH, response.get("RESULT"), response.get("MESSAGE") );
 		resultScreen.setPreviousScreen(this);
