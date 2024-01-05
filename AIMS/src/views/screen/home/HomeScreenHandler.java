@@ -172,9 +172,7 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
                 invoiceListHandler.setHomeScreenHandler(this);
                 invoiceListHandler.setBController(new InvoiceListController());
                 invoiceListHandler.requestToInvoiceList(this);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            } catch (SQLException ex) {
+            } catch (IOException | SQLException ex) {
                 throw new RuntimeException(ex);
             }
         });
@@ -239,7 +237,7 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
             });
 
             // filter only media with the choosen category
-            List filteredItems = new ArrayList<>();
+            List<MediaHandler> filteredItems = new ArrayList<>();
             homeItems.forEach(me -> {
                 MediaHandler media = (MediaHandler) me;
                 if (media.getMedia().getTitle().toLowerCase().startsWith(text.toLowerCase())){
@@ -272,21 +270,22 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
             });
 
 //             fill out the home with filted media as category
-            if (filteredItems.isEmpty()) {
-                try {
-
-                    PopupScreen.error("No matching products.");
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            } else {
-                // fill out the home with filtered media as a category
-                currentPage = 0;
-                this.displayedItems = filteredItems;
-                List<MediaHandler> displayedItems = updateMediaDisplay(filteredItems);
-                addMediaHome(displayedItems);
-
-            }
+//            if (filteredItems.isEmpty()) {
+//                try {
+//
+//                    PopupScreen.error("No matching products.");
+//                } catch (IOException ex) {
+//                    ex.printStackTrace();
+//                }
+//            } else {
+//                // fill out the home with filtered media as a category
+//                currentPage = 0;
+//                this.displayedItems = filteredItems;
+//                List<MediaHandler> displayedItems = updateMediaDisplay(filteredItems);
+//                addMediaHome(displayedItems);
+//
+//            }
+            checkEmpty(filteredItems);
         });
         menuButton.getItems().add(position, menuItem);
     }
@@ -294,30 +293,36 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
     @FXML
     private void searchButtonClicked(MouseEvent event) {
         String searchText = searchField.getText().toLowerCase().trim();
+        List<MediaHandler> filteredItems = filterMediaByKeyWord(searchText, homeItems);
+        checkEmpty(filteredItems);
+    }
 
-        // Lọc danh sách sản phẩm dựa trên tiêu đề
-        List<MediaHandler> filteredItems = new ArrayList<>();
-        for (Object item : homeItems) {
-            MediaHandler media = (MediaHandler) item;
-            if (media.getMedia().getTitle().toLowerCase().contains(searchText)) {
-                filteredItems.add(media);
-            }
-        }
+    private void checkEmpty(List<MediaHandler> filteredItems) {
         if (filteredItems.isEmpty()) {
             try {
-
                 PopupScreen.error("No matching products.");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         } else {
-            // fill out the home with filtered media as a category
             currentPage = 0;
             this.displayedItems = filteredItems;
             List<MediaHandler> displayedItems = updateMediaDisplay(filteredItems);
             addMediaHome(displayedItems);
         }
     }
+
+    private List<MediaHandler> filterMediaByKeyWord(String keyword, List<Object> items) {
+        List<MediaHandler> filteredItems = new ArrayList<>();
+        for (Object item : items) {
+            MediaHandler media = (MediaHandler) item;
+            if (media.getMedia().getTitle().toLowerCase().contains(keyword)) {
+                filteredItems.add(media);
+            }
+        }
+        return filteredItems;
+    }
+
 
 
 }
