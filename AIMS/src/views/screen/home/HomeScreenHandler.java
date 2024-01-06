@@ -1,6 +1,5 @@
 package views.screen.home;
 
-import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -9,7 +8,6 @@ import java.util.*;
 import java.util.logging.Logger;
 
 import common.exception.ViewCartException;
-import controller.BaseController;
 import controller.HomeController;
 import controller.InvoiceListController;
 import controller.ViewCartController;
@@ -293,7 +291,7 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
         }
     }
 
-    private List<MediaHandler> filterMediaByKeyWord(String keyword, List<Object> items) {
+    public List<MediaHandler> filterMediaByKeyWord(String keyword, List<MediaHandler> items) {
         List<MediaHandler> filteredItems = new ArrayList<>();
         for (Object item : items) {
             MediaHandler media = (MediaHandler) item;
