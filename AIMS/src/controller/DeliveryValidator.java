@@ -1,33 +1,28 @@
 package controller;
 
+import common.exception.InvalidDeliveryInfoException;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class DeliveryValidator {
 
-    public static Map<String, String> validateDeliveryInfo(HashMap<String, String> info) {
-        Map<String, String> errors = new HashMap<>();
+    public static void validateDeliveryInfo(HashMap<String, String> info) throws InterruptedException {
 
-        String name = info.get("name");
-        if (validateName(name)) {
-            errors.put("name", "Invalid name");
+        if(validateName(info.get("name"))){
+            throw  new InvalidDeliveryInfoException("Invalid name");
         }
-
-        String phoneNumber = info.get("phone");
-        if (validatePhoneNumber(phoneNumber)) {
-            errors.put("phone", "Invalid phone number");
+        if(validatePhoneNumber(info.get("phone"))){
+            throw  new InvalidDeliveryInfoException("Invalid phone number");
         }
-
-        String address = info.get("address");
-        if (validateAddress(address)) {
-            errors.put("address", "Invalid address");
+        if(validateAddress(info.get("address"))){
+            throw  new InvalidDeliveryInfoException("Invalid address");
         }
-        return errors;
     }
 
     public static boolean validatePhoneNumber(String phoneNumber) {
         if (phoneNumber == null || phoneNumber.trim().isEmpty()) return true;
-        return !phoneNumber.matches("\\d{10}");
+        return !phoneNumber.matches("^0[1-9][0-9]{8}$");
     }
 
     public static boolean validateName(String name) {
@@ -37,6 +32,6 @@ public class DeliveryValidator {
 
     public static boolean validateAddress(String address) {
         if (address == null || address.trim().isEmpty()) return true;
-        return !address.matches("^[a-zA-Z ]*$");
+        return !address.matches("^[.0-9a-zA-Z\\s,-]+$");
     }
 }
