@@ -30,6 +30,7 @@ import utils.Utils;
 import views.screen.BaseScreenHandler;
 import views.screen.cart.CartScreenHandler;
 import views.screen.invoicelist.InvoiceListHandler;
+import views.screen.media.MediaDetailHandler;
 import views.screen.popup.PopupScreen;
 
 
@@ -302,6 +303,19 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
             }
         }
         return filteredItems;
+    }
+
+    public void handleClickDetail(Media media){
+        MediaDetailHandler mediaDetailHandler;
+        try {
+            mediaDetailHandler = new MediaDetailHandler(this.stage, media,Configs.MEDIA_DETAIL_PATH);
+            mediaDetailHandler.requestToDetail(this);
+            mediaDetailHandler.setHomeScreenHandler(this);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
 

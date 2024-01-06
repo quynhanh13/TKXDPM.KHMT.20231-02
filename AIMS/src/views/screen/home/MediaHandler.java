@@ -18,7 +18,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import utils.Utils;
 import views.screen.FXMLScreenHandler;
-import views.screen.home.HomeScreenHandler;
 import views.screen.popup.PopupScreen;
 
 public class MediaHandler extends FXMLScreenHandler{
@@ -40,6 +39,9 @@ public class MediaHandler extends FXMLScreenHandler{
 
     @FXML
     protected Button addToCartBtn;
+
+    @FXML
+    protected Button btnDetail;
 
     private static Logger LOGGER = Utils.getLogger(MediaHandler.class.getName());
     private Media media;
@@ -79,12 +81,17 @@ public class MediaHandler extends FXMLScreenHandler{
                 } catch (Exception e) {
                     LOGGER.severe("Cannot add media to cart: ");
                 }
-                
+
             } catch (Exception exp) {
                 LOGGER.severe("Cannot add media to cart: ");
                 exp.printStackTrace();
             }
         });
+
+        btnDetail.setOnMouseClicked(e -> {
+            home.handleClickDetail(this.media);
+        });
+
         setMediaInfo();
     }
 
@@ -104,10 +111,10 @@ public class MediaHandler extends FXMLScreenHandler{
         mediaPrice.setText(Utils.getCurrencyFormat(media.getPrice()));
         mediaAvail.setText(Integer.toString(media.getQuantity()));
         spinnerChangeNumber.setValueFactory(
-            new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 1)
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 1)
         );
 
         setImage(mediaImage, media.getImageURL());
     }
-    
+
 }

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="211.0" prefWidth="298.0" style="-fx-border-color: #ccd9ff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="211.0" prefWidth="298.0" style="-fx-border-color: #ccd9ff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fx:id="mediaImage" fitHeight="152.0" fitWidth="160.0" layoutX="14.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -72,9 +72,14 @@
                         <Spinner fx:id="spinnerChangeNumber" prefHeight="26.0" prefWidth="98.0" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="72.0" prefWidth="106.0">
+                  <HBox alignment="CENTER" prefHeight="46.0" prefWidth="109.0">
                      <children>
                         <Button fx:id="addToCartBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="35.0" prefWidth="97.0" style="-fx-cursor: hand;" text="Add to Cart" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="35.0" prefWidth="105.0">
+                     <children>
+                        <Button fx:id="btnDetail" alignment="CENTER" mnemonicParsing="false" prefHeight="31.0" prefWidth="99.0" text="Detail" />
                      </children>
                   </HBox>
                </children>
