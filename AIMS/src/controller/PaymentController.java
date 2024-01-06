@@ -54,7 +54,7 @@ public class PaymentController extends BaseController {
 	public void refundOrder(Invoice invoice) throws IOException, SQLException {
 		try {
 			interbank.refundOrder(invoice);
-		}catch (Exception e){
+		}catch (PaymentException e){
 			throw e;
 		}
 	}

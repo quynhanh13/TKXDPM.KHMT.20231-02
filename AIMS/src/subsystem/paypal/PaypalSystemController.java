@@ -3,21 +3,16 @@ package subsystem.paypal;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import common.exception.InvalidCardException;
 import common.exception.PaymentException;
-import common.exception.UnrecognizedException;
 import entity.invoice.Invoice;
-import entity.payment.CreditCard;
 import entity.payment.PaymentTransaction;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
-import utils.Configs;
-import utils.MyMap;
+
 import utils.Utils;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Map;
 
 public class PaypalSystemController {
 
@@ -31,7 +26,7 @@ public class PaypalSystemController {
             //Data Coupling
             HttpResponse response = paypalBoundary.capturePayOrder(invoice.getPaypalId());
             String statusCode = String.valueOf(response.getStatusLine().getStatusCode());
-            statusCode = handleStatusCode(statusCode);
+            statusCode = HandleException.handleStatusCodePayment(statusCode);
             invoice.updateStatus("PAYMENT COMPLETED");
             PaymentTransaction trans = new PaymentTransaction(invoice.getId(), Utils.getToday().toString(), extractRefundLink(EntityUtils.toString(response.getEntity())));
             trans.saveTransaction();
@@ -46,17 +41,12 @@ public class PaypalSystemController {
         try {
             HttpResponse response = paypalBoundary.refundPayOrder(PaymentTransaction.getRefundId(invoice.getId()));
             String statusCode = String.valueOf(response.getStatusLine().getStatusCode());
-            statusCode = handleStatusCode(statusCode);
+            statusCode = HandleException.handleStatusCodeRefund(statusCode);
             invoice.updateStatus("REFUND");
         }
-        catch (Exception e){
+        catch (PaymentException e){
             throw e;
         }
-    }
-
-    private String handleStatusCode(String statusCode){
-        if(statusCode.equals("201")) return statusCode;
-        else throw new PaymentException("");
     }
 
     public String getUrlPayOrder(int amount){
