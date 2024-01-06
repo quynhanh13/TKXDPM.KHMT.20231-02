@@ -1,4 +1,5 @@
 package subsystem;
+import common.exception.PaymentException;
 import entity.invoice.Invoice;
 import entity.payment.PaymentTransaction;
 import subsystem.paypal.PaypalSystemController;
@@ -31,7 +32,7 @@ public class InterbankSubsystem implements InterbankInterface {
 		return transaction;
 	}
 
-	public void refundOrder(Invoice invoice) throws IOException, SQLException {
+	public void refundOrder(Invoice invoice) throws IOException, SQLException, PaymentException {
 		paypalSystemController.refundOrder(invoice);
 	}
 }
