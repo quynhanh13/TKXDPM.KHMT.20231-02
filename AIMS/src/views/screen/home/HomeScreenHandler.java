@@ -1,6 +1,5 @@
 package views.screen.home;
 
-import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -9,7 +8,6 @@ import java.util.*;
 import java.util.logging.Logger;
 
 import common.exception.ViewCartException;
-import controller.BaseController;
 import controller.HomeController;
 import controller.InvoiceListController;
 import controller.ViewCartController;
@@ -221,7 +219,7 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
         }
     }
 
-    private void addMenuItem(int position, String text, MenuButton menuButton){
+    public void addMenuItem(int position, String text, MenuButton menuButton){
         MenuItem menuItem = new MenuItem();
         Label label = new Label();
         label.prefWidthProperty().bind(menuButton.widthProperty().subtract(31));
@@ -248,7 +246,7 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
                         }
 
                     } else if (text.equals("20đ-50đ")) {
-                        if (media.getMedia().getPrice() >= 20 && media.getMedia().getPrice() <= 50) {
+                        if (media.getMedia().getPrice() >= 20 && media.getMedia().getPrice() < 50) {
                             filteredItems.add(media);
                         }
                     } else if (text.equals("50đ-100đ")) {
@@ -256,7 +254,7 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
                             filteredItems.add(media);
                         }
                     }
-                    else if (text.equals("50đ-100đ")) {
+                    else if (text.equals(">100đ")) {
                         if (media.getMedia().getPrice() > 100) {
                             filteredItems.add(media);
                         }
@@ -273,7 +271,7 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
     }
 
     @FXML
-    private void searchButtonClicked(MouseEvent event) {
+    void searchButtonClicked(MouseEvent event) {
         String searchText = searchField.getText().toLowerCase().trim();
         List<MediaHandler> filteredItems = filterMediaByKeyWord(searchText, homeItems);
         checkEmpty(filteredItems);
@@ -294,7 +292,7 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
         }
     }
 
-    private List<MediaHandler> filterMediaByKeyWord(String keyword, List<Object> items) {
+    public List<MediaHandler> filterMediaByKeyWord(String keyword, List<MediaHandler> items) {
         List<MediaHandler> filteredItems = new ArrayList<>();
         for (Object item : items) {
             MediaHandler media = (MediaHandler) item;
