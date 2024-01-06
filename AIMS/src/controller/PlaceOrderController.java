@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.logging.Logger;
 
@@ -74,45 +75,14 @@ public class PlaceOrderController extends BaseController{
      * @throws InterruptedException
      * @throws IOException
      */
-    public void processDeliveryInfo(HashMap info) throws InterruptedException, IOException{
+    public void processDeliveryInfo(HashMap<String, String> info) throws InterruptedException, IOException {
         LOGGER.info("Process Delivery Info");
         LOGGER.info(info.toString());
-        validateDeliveryInfo(info);
-    }
 
-    /**
-     * The method validates the info
-     * @param info
-     * @throws InterruptedException
-     * @throws IOException
-     */
-    public void validateDeliveryInfo(HashMap<String, String> info) throws InterruptedException, IOException{
-        if(this.validateName(info.get("name"))){
-            throw  new InvalidDeliveryInfoException("Invalid name");
-        }
-        if(this.validatePhoneNumber(info.get("phone"))){
-            throw  new InvalidDeliveryInfoException("Invalid phone number");
-        }
-        if(this.validateAddress(info.get("address"))){
-            throw  new InvalidDeliveryInfoException("Invalid address");
-        }
-    }
+        // Validate delivery info using DeliveryValidator
+        DeliveryValidator.validateDeliveryInfo(info);
 
-    public boolean validatePhoneNumber(String phoneNumber) {
-        if(phoneNumber == null || phoneNumber.trim().isEmpty()) return true;
-        return !phoneNumber.matches("\\d{10}");
     }
-
-    public boolean validateName(String name) {
-        if(name == null || name.trim().isEmpty()) return true;
-        return !name.matches("^[a-zA-Z ]*$");
-    }
-
-    public boolean validateAddress(String address) {
-        if(address == null || address.trim().isEmpty()) return true;
-        return !address.matches("^[a-zA-Z ]*$");
-    }
-
 
     /**
      * This method calculates the shipping fees of order
