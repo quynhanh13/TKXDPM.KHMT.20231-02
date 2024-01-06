@@ -24,7 +24,8 @@ Managing Capstone's project in the Software Design and Construction course in th
 
 
 - `AIMS`: folder containing the team's AIMS base code
-- `assets`: folder containing images that you want to include in the report file
+- `assets`: folder containing images ưhich include in the report file
+- `Document`: folder containing video demo and all document of diagrams and design for new functions 
 - `README.md`: weekly report file, individuals are required to update their tasks and how their do it into this file
 - `Template.md`: template for the weekly report
 - `pull_request_template.md`: pull request's description template
