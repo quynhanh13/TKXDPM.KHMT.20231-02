@@ -1,5 +1,6 @@
 package views.screen.invoicelist;
 
+import common.exception.PaymentException;
 import controller.InvoiceListController;
 import controller.PaymentController;
 import entity.invoice.Invoice;
@@ -28,9 +29,11 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import static views.screen.popup.PopupScreen.*;
+
 public class InvoiceListHandler extends BaseScreenHandler {
 
-    private final ArrayList<Invoice> dataInvoice;
+    private ArrayList<Invoice> dataInvoice;
 
     @FXML
     private ImageView aimsImage;
@@ -56,9 +59,7 @@ public class InvoiceListHandler extends BaseScreenHandler {
     public InvoiceListHandler(Stage stage, String screenPath) throws IOException, SQLException {
         super(stage, screenPath);
 
-        dataInvoice = new Invoice().getListInvoice();
-        initializeTableColumns();
-        populateTable();
+        loadData();
 
         File file = new File("assets/images/Logo.png");
         Image im = new Image(file.toURI().toString());
@@ -122,15 +123,14 @@ public class InvoiceListHandler extends BaseScreenHandler {
                     InterbankSubsystem interbankSubsystem = new InterbankSubsystem();
                     PaymentController paymentController = new PaymentController(interbankSubsystem);
                     paymentController.refundOrder(invoice);
-                    PopupScreen.success("Refund successful");
-                } catch (IOException e) {
+                    success("Refund successful", 3);
+                    loadData();
+                } catch (IOException | SQLException | PaymentException e) {
                     try {
-                        PopupScreen.error(e.getMessage());
+                        error(e.getMessage());
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
                 }
             });
         }else {
@@ -154,5 +154,11 @@ public class InvoiceListHandler extends BaseScreenHandler {
         setPreviousScreen(prevScreen);
         setScreenTitle("Invoice List Screen");
         show();
+    }
+
+    private void loadData() throws SQLException {
+        dataInvoice = Invoice.getListInvoice();
+        initializeTableColumns();
+        populateTable();
     }
 }

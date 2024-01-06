@@ -8,6 +8,6 @@ import java.util.ArrayList;
 public class InvoiceListController extends BaseController {
 
     public ArrayList<Invoice> getListInvoice() throws SQLException {
-        return new Invoice().getListInvoice();
+        return Invoice.getListInvoice();
     }
 }

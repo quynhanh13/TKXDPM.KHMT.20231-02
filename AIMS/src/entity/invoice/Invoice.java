@@ -91,7 +91,7 @@ public class Invoice {
         }
     }
 
-    public ArrayList<Invoice> getListInvoice() throws SQLException {
+    public static ArrayList<Invoice> getListInvoice() throws SQLException {
         Statement stm = AIMSDB.getConnection().createStatement();
         ResultSet res = stm.executeQuery("SELECT * from Invoice");
         ArrayList<Invoice> invoices = new ArrayList<>();

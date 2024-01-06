@@ -41,6 +41,10 @@ public class PopupScreen extends BaseScreenHandler{
         popup(message, Configs.IMAGE_PATH + "/" + "tickgreen.png", true).show(true);
     }
 
+    public static void success(String message,double time) throws IOException{
+        popup(message, Configs.IMAGE_PATH + "/" + "tickgreen.png", true).show(true, time);
+    }
+
     public static void error(String message) throws IOException{
         popup(message, Configs.IMAGE_PATH + "/" + "tickerror.png", false).show(false);
     }
@@ -56,6 +60,11 @@ public class PopupScreen extends BaseScreenHandler{
     public void show(Boolean autoclose) {
         super.show();
         if (autoclose) close(0.8);
+    }
+
+    public void show(Boolean autoclose, double time) {
+        super.show();
+        if (autoclose) close(time);
     }
 
     public void show(double time) {
