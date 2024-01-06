@@ -67,8 +67,6 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
     @FXML
     private SplitMenuButton splitMenuBtnSearch;
 
-//    @FXML
-//    private Button invoiceList;
 
     @FXML
     private ImageView invoiceList;
@@ -253,7 +251,7 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
                             filteredItems.add(media);
                         }
                     } else if (text.equals("50đ-100đ")) {
-                        if (media.getMedia().getPrice() > 50 && media.getMedia().getPrice() <= 100) {
+                        if (media.getMedia().getPrice() >= 50 && media.getMedia().getPrice() <= 100) {
                             filteredItems.add(media);
                         }
                     }
@@ -268,23 +266,6 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
                 }
 
             });
-
-//             fill out the home with filted media as category
-//            if (filteredItems.isEmpty()) {
-//                try {
-//
-//                    PopupScreen.error("No matching products.");
-//                } catch (IOException ex) {
-//                    ex.printStackTrace();
-//                }
-//            } else {
-//                // fill out the home with filtered media as a category
-//                currentPage = 0;
-//                this.displayedItems = filteredItems;
-//                List<MediaHandler> displayedItems = updateMediaDisplay(filteredItems);
-//                addMediaHome(displayedItems);
-//
-//            }
             checkEmpty(filteredItems);
         });
         menuButton.getItems().add(position, menuItem);
