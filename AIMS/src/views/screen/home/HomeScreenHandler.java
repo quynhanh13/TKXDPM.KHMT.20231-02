@@ -271,9 +271,12 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
     }
 
     @FXML
-    void searchButtonClicked(MouseEvent event) {
+    void searchButtonClicked(MouseEvent event) throws SQLException, IOException {
         String searchText = searchField.getText().toLowerCase().trim();
-        List<MediaHandler> filteredItems = filterMediaByKeyWord(searchText, homeItems);
+        List<Media> medium = getBController().getAllMedia();
+        List<Media> filteredMedia = getBController().filterMediaByKeyWord(searchText,medium);
+//        List<MediaHandler> filteredItems = filterMediaByKeyWord(searchText, homeItems);
+        List<MediaHandler> filteredItems = convertMediaHandlerList(filteredMedia);
         checkEmpty(filteredItems);
     }
 
@@ -316,7 +319,14 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
         }
     }
 
-
-
+    public List<MediaHandler> convertMediaHandlerList(List<Media> items) throws SQLException, IOException {
+        List<MediaHandler> mediaHandlerList = new ArrayList<>();
+        for (Object item : items) {
+            Media media = (Media) item ;
+            MediaHandler m1 = new MediaHandler(Configs.HOME_MEDIA_PATH, media, this);
+            mediaHandlerList.add(m1);
+        }
+        return mediaHandlerList;
+    }
 }
 
