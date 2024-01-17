@@ -21,6 +21,8 @@ import javafx.stage.Stage;
 import subsystem.InterbankSubsystem;
 import utils.Configs;
 import views.screen.BaseScreenHandler;
+import views.screen.home.HomeScreenHandler;
+import views.screen.invoice.InvoiceDetailHandler;
 import views.screen.payment.PaymentScreenHandler;
 import views.screen.popup.PopupScreen;
 
@@ -34,6 +36,8 @@ import static views.screen.popup.PopupScreen.*;
 public class InvoiceListHandler extends BaseScreenHandler {
 
     private ArrayList<Invoice> dataInvoice;
+
+    private HomeScreenHandler home;
 
     @FXML
     private ImageView aimsImage;
@@ -55,6 +59,9 @@ public class InvoiceListHandler extends BaseScreenHandler {
 
     @FXML
     private TableColumn<Invoice, Button> invoice_custom;
+
+    @FXML
+    private TableColumn<Invoice, Button> invoice_detail;
 
     public InvoiceListHandler(Stage stage, String screenPath) throws IOException, SQLException {
         super(stage, screenPath);
@@ -93,6 +100,43 @@ public class InvoiceListHandler extends BaseScreenHandler {
                 }
             }
         });
+
+        invoice_detail.setCellValueFactory(cellData -> {
+            Button detailButton = createDetailButton(cellData.getValue());
+            return new SimpleObjectProperty<>(detailButton);
+        });
+        invoice_detail.setCellFactory(col -> new TableCell<>() {
+            @Override
+            protected void updateItem(Button button, boolean empty) {
+                super.updateItem(button, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(button);
+                }
+            }
+        });
+    }
+
+    private Button createDetailButton(Invoice invoice) {
+        Button detailButton = new Button();
+        detailButton.setText("Detail");
+//        String status = invoice.getStatus();
+
+        detailButton.setOnMouseClicked(e -> {
+            InvoiceDetailHandler invoiceDetailHandler;
+            try {
+                invoiceDetailHandler = new InvoiceDetailHandler(this.stage, invoice, Configs.INVOICE_DETAIL_PATH);
+                invoiceDetailHandler.requestToDetail(this);
+                invoiceDetailHandler.setHomeScreenHandler(HomeScreenHandler._instance);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        return detailButton;
     }
 
     private Button createCustomButton(Invoice invoice) {
