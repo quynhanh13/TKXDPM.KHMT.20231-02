@@ -36,7 +36,8 @@
                 <TableColumn fx:id="idColumn" prefWidth="236.0000762939453" style="-fx-font-size: 20; -fx-aligment: CENTER; -fx-pref-height: 50;" text="Invoice ID" />
                 <TableColumn fx:id="amountColumn" prefWidth="228.7999267578125" style="-fx-font-size: 20; -fx-aligment: CENTER; -fx-pref-height: 50;" text="Amount" />
                 <TableColumn fx:id="statusColumn" prefWidth="220.79998779296875" style="-fx-font-size: 20; -fx-aligment: CENTER; -fx-pref-height: 50;" text="Status" />
-                <TableColumn fx:id="invoice_custom" prefWidth="432.7999267578125" style="-fx-font-size: 20; -fx-aligment: CENTER; -fx-pref-height: 50;" />
+                <TableColumn fx:id="invoice_custom" prefWidth="200.0" style="-fx-font-size: 20; -fx-aligment: CENTER; -fx-pref-height: 50;" text="Custom"/>
+                <TableColumn fx:id="invoice_detail" prefWidth="200.0" style="-fx-font-size: 20; -fx-aligment: CENTER; -fx-pref-height: 50;" text="Detail"/>
             </columns>
         </TableView>
     </children>
