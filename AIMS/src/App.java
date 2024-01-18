@@ -49,6 +49,7 @@ public class App extends Application {
 			fadeOut.setOnFinished((e) -> {
 				try {
 					HomeScreenHandler homeHandler = new HomeScreenHandler(primaryStage, Configs.HOME_PATH);
+					HomeScreenHandler._instance = homeHandler;
 					homeHandler.setScreenTitle("Home Screen");
 					homeHandler.setImage();
 					homeHandler.show();

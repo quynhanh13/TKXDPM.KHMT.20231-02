@@ -12,6 +12,7 @@ import controller.HomeController;
 import controller.InvoiceListController;
 import controller.ViewCartController;
 import entity.cart.Cart;
+import entity.invoice.Invoice;
 import entity.media.Media;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,6 +28,7 @@ import utils.Configs;
 import utils.Utils;
 import views.screen.BaseScreenHandler;
 import views.screen.cart.CartScreenHandler;
+import views.screen.invoice.InvoiceDetailHandler;
 import views.screen.invoicelist.InvoiceListHandler;
 import views.screen.media.MediaDetailHandler;
 import views.screen.popup.PopupScreen;
@@ -73,6 +75,8 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
     private List homeItems;
 
     private List displayedItems;
+
+    public static HomeScreenHandler _instance;
 
     public HomeScreenHandler(Stage stage, String screenPath) throws IOException{
         super(stage, screenPath);
@@ -318,6 +322,19 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
             throw new RuntimeException(ex);
         }
     }
+
+    // public void handleInvoiceDetail(Invoice invoice){
+    //     InvoiceDetailHandler invoiceDetailHandler;
+    //     try {
+    //         invoiceDetailHandler = new InvoiceDetailHandler(this.stage, invoice, Configs.INVOICE_DETAIL_PATH);
+    //         invoiceDetailHandler.requestToDetail(this);
+    //         invoiceDetailHandler.setHomeScreenHandler(this);
+    //     } catch (IOException ex) {
+    //         throw new RuntimeException(ex);
+    //     } catch (SQLException ex) {
+    //         throw new RuntimeException(ex);
+    //     }
+    // }
 
     public List<MediaHandler> convertMediaHandlerList(List<Media> items) throws SQLException, IOException {
         List<MediaHandler> mediaHandlerList = new ArrayList<>();

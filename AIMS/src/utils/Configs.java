@@ -34,6 +34,7 @@ public class Configs {
 	public static final String DB_USERNAME = System.getenv("DB_USERNAME");
 	public static final String DB_PASSWORD = System.getenv("DB_PASSWORD");
 	public static final String MEDIA_DETAIL_PATH ="/views/fxml/media_detail.fxml" ;
+	public static final String INVOICE_DETAIL_PATH ="/views/fxml/invoice_detail.fxml" ;
 
 	public static String CURRENCY = "VND";
 	public static float PERCENT_VAT = 10;
